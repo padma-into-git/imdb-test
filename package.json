@@ -1,0 +1,21 @@
+{
+  "name": "imdb-test",
+  "version": "1.0.0",
+  "description": "Cypress Automation Test for imdb",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules\\.bin\\cypress run",
+    "headTest": "npm run test --headed",
+    "chromeTest": "npm run headTest -- --browser chrome",
+    "mochaReport": "npm run chromeTest --record --reporter mochawesome",
+    "test:e2e": "npm run mochaReport -- --spec \"cypress/integration/modules/EndToEndTest.js\"",
+    "RecordDashBoard": "npx cypress run --record --key b86b6211-af50-48ed-9d6b-f9f32f1d3080"
+  },
+  "author": "Padmavathy Jayakumar",
+  "license": "ISC",
+  "dependencies": {
+    "cypress": "^6.6.0",
+    "mocha": "^8.3.0",
+    "mochawesome": "^6.2.2"
+  }
+}
