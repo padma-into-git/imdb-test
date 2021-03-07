@@ -8,6 +8,20 @@ export default class MoviePlayPage {
       );
       return cy.get('[class="title_wrapper"]');
     };
+
+    this.getMyAccount = () => {
+      return cy.get('[id="navUserMenu"]');
+    };
+
+    this.getSignOut = () => {
+      waitForVisible(
+        '[class="ipc-list__item imdb-header-account-menu__sign-out"]',
+        5000 // search api takes more time
+      );
+      return cy.get(
+        '[class="ipc-list__item imdb-header-account-menu__sign-out"]'
+      );
+    };
   }
 
   assertMovieTitleOnPlayPage = (movieTitle) => {
@@ -15,9 +29,9 @@ export default class MoviePlayPage {
   };
 
   clickOnMyAccount = () => {
-    return cy.get('[id="navUserMenu"]');
+    return this.getMyAccount().click({ force: true });
   };
   clickOnSignOut = () => {
-    return cy.get("a.ipc-list__item.imdb-header-account-menu__sign-out");
+    return this.getSignOut().click();
   };
 }

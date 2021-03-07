@@ -50,7 +50,8 @@ describe("End to End Testing", function () {
   });
 
   it("Sign out of IMDB", function () {
-    moviePlayPage.clickOnMyAccount({ force: true });
-    moviePlayPage.clickOnSignOut({ force: true });
+    moviePlayPage.clickOnMyAccount();
+    moviePlayPage.clickOnSignOut();
+    homePage.getSignInButtonText().should("include.text", logInValue);
   });
 });
