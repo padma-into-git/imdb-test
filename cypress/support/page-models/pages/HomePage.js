@@ -1,7 +1,16 @@
+import { waitForVisible } from "../../utility/test-utility";
 export default class HomePage {
-  clickOnSignInButton = () => {
-    return cy.get(
-      '[class="ipc-button ipc-button--single-padding ipc-button--default-height ipc-button--core-baseAlt ipc-button--theme-baseAlt ipc-button--on-textPrimary ipc-text-button imdb-header__signin-text"]'
-    );
+  constructor() {
+    this.getSignInButtonText = () => {
+      waitForVisible(
+        ".imdb-header__signin-text",
+        5000 // search api takes more time
+      );
+      return cy.get(".imdb-header__signin-text");
+    };
+  }
+
+  clickOnSignInButton = (logInValue) => {
+    return this.getSignInButtonText().contains(logInValue).click();
   };
 }

@@ -1,6 +1,7 @@
 {
   "email":"inboxtopadma@gmail.com",
   "password":"Subtest@123",
+  "userName":"Jeff",
   "movieTitle": "Titanic",
   "logInValue":"Sign In",
   "sigInValue":"Sign in with IMDb",

@@ -1,19 +1,47 @@
+import { waitForVisible } from "../../utility/test-utility";
+
 export default class MoviesSearchListPage {
-  searchForAMovie = () => {
-    return cy.get("#suggestion-search");
+  constructor() {
+    this.getSearchMovieText = () => {
+      waitForVisible(
+        "#suggestion-search",
+        5000 // search api takes more time
+      );
+      return cy.get("#suggestion-search");
+    };
+
+    this.getMoviesList = () => {
+      waitForVisible(
+        ".react-autosuggest__suggestions-list.anim-enter-done",
+        5000 // search api takes more time
+      );
+      return cy.get(".react-autosuggest__suggestions-list.anim-enter-done");
+    };
+
+    this.getFirstMovieOnList = () => {
+      waitForVisible(
+        '[id="react-autowhatever-1--item-0"]',
+        5000 // search api takes more time
+      );
+      return cy.get('[id="react-autowhatever-1--item-0"]');
+    };
+  }
+
+  assertSuccessfulSignIn = () => {
+    return cy.get(".navbar__user-name");
   };
 
-  waitForSearchResultsToLoad = () => {
-    return cy.wait(500);
+  searchForAMovie = (movieTitle) => {
+    return this.getSearchMovieText().type(movieTitle);
   };
 
-  assertForMovieTitle = () => {
-    return cy.get(
-      '[class="react-autosuggest__suggestions-list anim-enter-done"]'
-    );
+  assertForMovieTitle = (movieTitle) => {
+    return this.getMoviesList().each(($el, index) => {
+      expect($el).to.contain(movieTitle);
+    });
   };
 
   clickOnTheFirstMovieOnList = () => {
-    return cy.get('[id="react-autowhatever-1--item-0"]');
+    return this.getFirstMovieOnList().click();
   };
 }

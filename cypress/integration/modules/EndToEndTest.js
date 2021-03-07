@@ -1,13 +1,12 @@
-/// <reference types = "Cypress" />
 import { Page, PageObject } from "../../support/page-models/pages/factory/Page";
 
-const homePage = PageObject(Page.HOME_PAGE);
-const loginOptionsPage = PageObject(Page.LOGIN_OPTIONS_PAGE);
-const loginPage = PageObject(Page.LOGIN_PAGE);
-const moviesSearchListPage = PageObject(Page.MOVIES_SEARCH_LIST_PAGE);
-const moviePlayPage = PageObject(Page.MOVIE_PLAY_PAGE);
-
-var movieTitle, logInValue, signInValue, emailValue, passwordValue;
+var movieTitle,
+  logInValue,
+  signInValue,
+  emailValue,
+  passwordValue,
+  userNameValue;
+var homePage, loginOptionsPage, loginPage, moviesSearchListPage, moviePlayPage;
 
 describe("End to End Testing", function () {
   before(function () {
@@ -19,37 +18,39 @@ describe("End to End Testing", function () {
       this.values = values;
       logInValue = this.values.logInValue;
       signInValue = this.values.sigInValue;
+      userNameValue = this.values.userName;
       emailValue = this.values.email;
       passwordValue = this.values.password;
       movieTitle = this.values.movieTitle;
     });
   });
 
+  beforeEach(function () {
+    homePage = PageObject(Page.HOME_PAGE);
+    loginOptionsPage = PageObject(Page.LOGIN_OPTIONS_PAGE);
+    loginPage = PageObject(Page.LOGIN_PAGE);
+    moviesSearchListPage = PageObject(Page.MOVIES_SEARCH_LIST_PAGE);
+    moviePlayPage = PageObject(Page.MOVIE_PLAY_PAGE);
+  });
+
   it("Sign In to IMDB", function () {
-    homePage.clickOnSignInButton().contains(logInValue).click();
-    loginOptionsPage.assertForSignInWithImdbOption().each(($el, index) => {
-      expect($el).to.contain(signInValue);
-    });
-    loginOptionsPage.clickOnSignInOption().eq(0).click();
-    loginPage.enterEmailInput().type(emailValue);
-    loginPage.enterPasswordInput().type(passwordValue);
-    loginPage.clickOnSignInButton().click();
+    homePage.clickOnSignInButton(logInValue);
+    loginOptionsPage.assertForSignInWithImdbOption(signInValue);
+    loginOptionsPage.clickOnSignInOption();
+    loginPage.enterEmailInput(emailValue);
+    loginPage.enterPasswordInput(passwordValue);
+    loginPage.clickOnSignInButton();
   });
 
   it("Search a Movie & Watch it", function () {
-    moviesSearchListPage.searchForAMovie().type(movieTitle);
-    moviesSearchListPage.waitForSearchResultsToLoad();
-    moviesSearchListPage.assertForMovieTitle().each(($el, index) => {
-      expect($el).to.contain(movieTitle);
-    });
-    moviesSearchListPage.clickOnTheFirstMovieOnList().click();
-    moviePlayPage
-      .assertMovieTitleOnPlayPage()
-      .should("include.text", movieTitle);
+    moviesSearchListPage.searchForAMovie(movieTitle);
+    moviesSearchListPage.assertForMovieTitle(movieTitle);
+    moviesSearchListPage.clickOnTheFirstMovieOnList();
+    moviePlayPage.assertMovieTitleOnPlayPage(movieTitle);
   });
 
   it("Sign out of IMDB", function () {
-    moviePlayPage.clickOnMyAccount().click({ force: true });
-    moviePlayPage.clickOnSignOut().click();
+    moviePlayPage.clickOnMyAccount({ force: true });
+    moviePlayPage.clickOnSignOut({ force: true });
   });
 });
