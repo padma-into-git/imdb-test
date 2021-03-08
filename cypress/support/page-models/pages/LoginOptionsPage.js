@@ -3,18 +3,10 @@ import { waitForVisible } from "../../utility/test-utility";
 export default class LoginOptionsPAge {
   constructor() {
     this.getImdbSignInOption = () => {
-      waitForVisible(
-        '[id="signin-options"]',
-        5000 // search api takes more time
-      );
       return cy.get('[id="signin-options"]');
     };
 
     this.getSignInButton = () => {
-      waitForVisible(
-        '[class="list-group-item "]',
-        5000 // search api takes more time
-      );
       return cy.get('[class="list-group-item "]');
     };
   }
