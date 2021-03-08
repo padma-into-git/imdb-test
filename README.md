@@ -58,7 +58,7 @@ open terminal --> type
 ### Project Details & Overview
 **Tool used to Automate :** Cypress
 
-**Programming Langauge **: JavaScript / Nodejs
+**Programming Language **: JavaScript / Nodejs
 
 **Programming Model :** This project used page object/Factory model and data driven framework
 
