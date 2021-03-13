@@ -3,17 +3,13 @@ import { waitForVisible } from "../../utility/test-utility";
 export default class MoviesSearchListPage {
   constructor() {
     this.getSearchMovieText = () => {
-      waitForVisible(
-        "#suggestion-search",
-        5000 // search api takes more time
-      );
       return cy.get("#suggestion-search");
     };
 
     this.getMoviesList = () => {
       waitForVisible(
         ".react-autosuggest__suggestions-list.anim-enter-done",
-        5000 // search api takes more time
+        10000 // search api takes more time
       );
       return cy.get(".react-autosuggest__suggestions-list.anim-enter-done");
     };
