@@ -7,18 +7,10 @@ export default class MoviesSearchListPage {
     };
 
     this.getMoviesList = () => {
-      waitForVisible(
-        ".react-autosuggest__suggestions-list.anim-enter-done",
-        10000 // search api takes more time
-      );
       return cy.get(".react-autosuggest__suggestions-list.anim-enter-done");
     };
 
     this.getFirstMovieOnList = () => {
-      waitForVisible(
-        '[id="react-autowhatever-1--item-0"]',
-        5000 // search api takes more time
-      );
       return cy.get('[id="react-autowhatever-1--item-0"]');
     };
   }
